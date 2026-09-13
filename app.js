@@ -28,9 +28,34 @@ app.use((req, res, next) => {
 });
 
 const PORT = process.env.PORT || 8000;
-mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error(err));
+
+const mongoConnection = globalThis.__mongoConnection || { promise: null };
+globalThis.__mongoConnection = mongoConnection;
+
+async function connectToMongoDB() {
+    if (mongoose.connection.readyState === 1) return;
+
+    if (!mongoConnection.promise) {
+        mongoConnection.promise = mongoose.connect(process.env.MONGO_URL)
+            .then(() => console.log('Connected to MongoDB'))
+            .catch((error) => {
+                mongoConnection.promise = null;
+                throw error;
+            });
+    }
+
+    await mongoConnection.promise;
+}
+
+app.use(async (req, res, next) => {
+    try {
+        await connectToMongoDB();
+        next();
+    } catch (error) {
+        console.error('MongoDB connection failed:', error.message);
+        res.status(503).send('Database unavailable');
+    }
+});
 
 
 app.get('/', async (req, res) => {
