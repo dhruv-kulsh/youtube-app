@@ -57,7 +57,6 @@ app.use(async (req, res, next) => {
     }
 });
 
-
 app.get('/', async (req, res) => {
     try {
         const allBlogs = await Blog.find({}).populate('createdBy', 'fullname').sort({ createdAt: -1 });
