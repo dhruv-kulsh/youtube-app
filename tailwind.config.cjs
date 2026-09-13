@@ -1,0 +1,8 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./views/**/*.ejs'], // tell Tailwind where your EJS files live
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
