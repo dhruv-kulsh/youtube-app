@@ -2,10 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.js": {
-      "includeFiles": [
-        "views/**/*.ejs",
-        "partials/**/*.ejs"
-      ]
+      "includeFiles": "{views,partials}/**/*.ejs"
     }
   },
   "rewrites": [
