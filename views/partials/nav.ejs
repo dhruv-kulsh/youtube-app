@@ -1,0 +1,32 @@
+<nav class="bg-black shadow-md">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+        <div class="text-xl font-bold text-white">Blogify</div>
+
+        <div class="flex space-x-6 items-center">
+            <a href="/" class="text-white hover:text-blue-600 transition">Home</a>
+            <a href="/blogs/add-new" class="text-white hover:text-blue-600 transition">Add Blog</a>
+
+            <% if (!user) { %>
+                <a href="/user/signin" class="text-white hover:text-blue-600 transition">Sign In</a>
+                <a href="/user/signup" class="text-white hover:text-blue-600 transition">Sign Up</a>
+            <% } else { %>
+                <span class="text-white">Hello, <%= user.fullname || user.email %></span>
+                <a href="/user/logout" class="text-white hover:text-red-500 transition">Logout</a>
+            <% } %>
+
+            <div class="relative group">
+                <button class="flex items-center text-white hover:text-blue-600 transition focus:outline-none">
+                    Contact
+                    <svg class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <div class="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-md py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-10">
+                    <a href="/contact/support" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600">Support</a>
+                    <a href="/contact/socials" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600">Socials</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
